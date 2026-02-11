@@ -1,0 +1,56 @@
+<div class="container">
+  <h1>{{ isEditMode ? 'Editar' : 'Novo' }} Fornecedor</h1>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-2">
+        <mat-label>CPF ou CNPJ</mat-label>
+        <input matInput formControlName="document" placeholder="Apenas números">
+        <mat-error *ngIf="form.get('document')?.hasError('required')">Obrigatório</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-2">
+        <mat-label>Nome Completo / Razão Social</mat-label>
+        <input matInput formControlName="name">
+        <mat-error *ngIf="form.get('name')?.hasError('required')">Obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-2">
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="email" type="email">
+        <mat-error *ngIf="form.get('email')?.hasError('email')">E-mail inválido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-2">
+        <mat-label>CEP</mat-label>
+        <input matInput formControlName="zipCode" (blur)="validateZip()">
+        <mat-error *ngIf="form.get('zipCode')?.hasError('pattern')">Formato inválido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Campos Condicionais PF -->
+    <div class="row" *ngIf="isIndividual">
+      <mat-form-field appearance="outline" class="col-2">
+        <mat-label>RG</mat-label>
+        <input matInput formControlName="rg">
+        <mat-error *ngIf="form.get('rg')?.hasError('required')">Obrigatório para PF</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-2">
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birthDate">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="form.get('birthDate')?.hasError('required')">Obrigatório para PF</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="actions">
+      <button mat-button type="button" routerLink="/suppliers">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Salvar</button>
+    </div>
+  </form>
+</div>
