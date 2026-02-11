@@ -1,0 +1,43 @@
+<div class="form-container mat-elevation-z4">
+  <div class="header">
+    <h1>{{ isEditMode ? 'Editar' : 'Nova' }} Empresa</h1>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    
+    <!-- Linha 1: CNPJ e Nome Fantasia -->
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-half">
+        <mat-label>CNPJ</mat-label>
+        <input matInput formControlName="document" placeholder="Apenas números (14 dígitos)" maxlength="14">
+        <mat-error *ngIf="form.get('document')?.hasError('required')">Obrigatório</mat-error>
+        <mat-error *ngIf="form.get('document')?.hasError('minlength')">Deve ter 14 dígitos</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-half">
+        <mat-label>Nome Fantasia</mat-label>
+        <input matInput formControlName="tradeName">
+        <mat-error *ngIf="form.get('tradeName')?.hasError('required')">Obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Linha 2: CEP -->
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-half">
+        <mat-label>CEP</mat-label>
+        <input matInput formControlName="zipCode" placeholder="00000-000">
+        <mat-hint>O endereço será validado automaticamente.</mat-hint>
+        <mat-error *ngIf="form.get('zipCode')?.hasError('pattern')">Formato inválido</mat-error>
+        <mat-error *ngIf="form.get('zipCode')?.hasError('required')">Obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Botões -->
+    <div class="actions">
+      <button mat-button type="button" routerLink="/companies">Cancelar</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || form.pristine">
+        Salvar
+      </button>
+    </div>
+  </form>
+</div>

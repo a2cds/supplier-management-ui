@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="header">
+    <h1>Gestão de Empresas</h1>
+    <button mat-raised-button color="primary" routerLink="/companies/new">
+      <mat-icon>add</mat-icon> Nova Empresa
+    </button>
+  </div>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="companies()">
+      
+      <!-- Nome Fantasia -->
+      <ng-container matColumnDef="tradeName">
+        <th mat-header-cell *matHeaderCellDef> Nome Fantasia </th>
+        <td mat-cell *matCellDef="let company"> {{company.tradeName}} </td>
+      </ng-container>
+
+      <!-- CNPJ -->
+      <ng-container matColumnDef="document">
+        <th mat-header-cell *matHeaderCellDef> CNPJ </th>
+        <td mat-cell *matCellDef="let company"> {{company.document}} </td>
+      </ng-container>
+
+      <!-- CEP -->
+      <ng-container matColumnDef="zipCode">
+        <th mat-header-cell *matHeaderCellDef> CEP </th>
+        <td mat-cell *matCellDef="let company"> {{company.zipCode}} </td>
+      </ng-container>
+
+      <!-- Ações -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Ações </th>
+        <td mat-cell *matCellDef="let company">
+          <button mat-icon-button color="primary" [routerLink]="['/companies/edit', company.id]" matTooltip="Editar">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="delete(company.id!)" matTooltip="Excluir">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Nenhuma empresa cadastrada.</td>
+      </tr>
+    </table>
+  </div>
+</div>

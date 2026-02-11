@@ -1,0 +1,36 @@
+.form-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 32px;
+  background: white;
+  border-radius: 8px;
+}
+
+.header {
+  margin-bottom: 24px;
+  h1 {
+    margin: 0;
+    font-size: 22px;
+  }
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+
+  .col-half {
+    flex: 1;
+    min-width: 250px;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
